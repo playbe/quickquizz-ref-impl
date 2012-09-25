@@ -1,0 +1,12 @@
+@(questionForm: Form[Question])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("Post a new question"){
+    @form(action = routes.QuizMaster.postQuestionForm()) {
+        @inputText(questionForm("question"), 'size -> 100)
+        @inputText(questionForm("expectedAnswer"), 'size -> 100)
+        <input type="submit">
+    }
+}

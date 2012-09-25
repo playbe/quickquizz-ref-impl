@@ -1,0 +1,19 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel='stylesheet' media='screen' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
+        <script src='@routes.Assets.at("javascripts/jquery-1.8.1.min.js")' type='text/javascript'></script>
+        <script src='@routes.Assets.at("javascripts/bootstrap.min.js")' type='text/javascript'></script>
+    </head>
+    <body>
+        <div class="container" style="padding-top: 20px">
+            <div class="hero-unit"><h4>@title</h4></div>
+            <div class="span12">@content</div>
+        </div>
+    </body>
+</html>
