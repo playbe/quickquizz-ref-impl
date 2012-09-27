@@ -4,6 +4,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 
 import static play.data.validation.Constraints.Required;
 
@@ -19,4 +20,9 @@ public class Question extends Model {
     @Required
     public String expectedAnswer;
 
+    private static final Finder<Long, Question> find = new Finder<Long, Question>(Long.class, Question.class);
+
+    public static List<Question> findAllQuestions() {
+        return find.all();
+    }
 }

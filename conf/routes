@@ -5,6 +5,7 @@
 # Home page
 GET     /master                controllers.QuizMaster.showQuestionForm()
 POST    /master                controllers.QuizMaster.postQuestionForm()
+GET     /master/questions      controllers.QuizMaster.allQuestions()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
