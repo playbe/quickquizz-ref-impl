@@ -1,5 +1,6 @@
 package models;
 
+import org.apache.commons.lang.NotImplementedException;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import static play.data.validation.Constraints.Required;
 @Entity
 public class Question extends Model {
 
+    private static final Finder<Long, Question> find = new Finder<Long, Question>(Long.class, Question.class);
+
     @Id
     public Long id;
 
@@ -20,9 +23,13 @@ public class Question extends Model {
     @Required
     public String expectedAnswer;
 
-    private static final Finder<Long, Question> find = new Finder<Long, Question>(Long.class, Question.class);
+
+    public void post() {
+        throw new NotImplementedException();
+    }
 
     public static List<Question> findAllQuestions() {
         return find.all();
     }
+
 }

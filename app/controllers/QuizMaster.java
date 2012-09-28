@@ -9,6 +9,8 @@ import views.html.questionList;
 
 import java.util.List;
 
+import static models.Question.findAllQuestions;
+
 public class QuizMaster extends Controller {
 
     public static Result showQuestionForm(){
@@ -21,13 +23,13 @@ public class QuizMaster extends Controller {
         if (form.hasErrors()){
             return badRequest(questionForm.render(form));
         } else {
-            form.get().save();
+            Question question = form.get();
+            question.post();
             return showQuestionForm();
         }
     }
 
     public static Result allQuestions(){
-        List<Question> questions = Question.findAllQuestions();
-        return ok(questionList.render(questions));
+        return ok(questionList.render(findAllQuestions()));
     }
 }
