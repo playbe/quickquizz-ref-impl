@@ -3,9 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /master                controllers.QuizMaster.showQuestionForm()
-POST    /master                controllers.QuizMaster.postQuestionForm()
-GET     /master/questions      controllers.QuizMaster.allQuestions()
+GET     /master                         controllers.QuizMaster.showQuestionForm()
+POST    /master                         controllers.QuizMaster.postQuestionForm()
+DELETE  /master/question/               controllers.QuizMaster.deleteQuestion(id:Long)
+GET     /master/questions               controllers.QuizMaster.allQuestions()
+
+POST    /master/question/:id/tweet      controllers.QuizMaster.tweetQuestion(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /js                             controllers.Application.js()
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)

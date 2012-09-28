@@ -28,6 +28,10 @@ public class Question extends Model {
         throw new NotImplementedException();
     }
 
+    public static Question byId(Long id) {
+        return find.byId(id);
+    }
+
     public static List<Question> findAllQuestions() {
         return find.all();
     }
