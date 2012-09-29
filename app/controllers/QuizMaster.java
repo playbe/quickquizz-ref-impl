@@ -8,16 +8,10 @@ import views.html.questionForm;
 import views.html.questionList;
 
 import play.libs.Json;
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 
-import java.util.List;
-
 import static models.Question.findAllQuestions;
-import static models.Question.byId;
-
-
-import org.apache.commons.lang.NotImplementedException;
+import static models.Question.questionById;
 
 
 public class QuizMaster extends Controller {
@@ -32,24 +26,22 @@ public class QuizMaster extends Controller {
         if (form.hasErrors()){
             return badRequest(questionForm.render(form));
         } else {
-            Question question = form.get();
-            question.save();
-            return showQuestionForm();
+            form.get().save();
+            return allQuestions();
         }
     }
 
     public static Result tweetQuestion(Long id) {
-        Question q = byId(id);
-        ObjectNode result = Json.newObject();
+        Question q = questionById(id);
         q.post();
+        ObjectNode result = Json.newObject();
         result.put("status", "OK");
         result.put("quetion", q.question);
         return ok(result);
     }
 
     public static Result deleteQuestion(Long id) {
-        Question q = byId(id);
-        q.delete();
+        questionById(id).delete();
         ObjectNode result = Json.newObject();
         result.put("status", "OK");
         return ok(result);

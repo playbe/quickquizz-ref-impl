@@ -28,7 +28,7 @@ public class Question extends Model {
         throw new NotImplementedException();
     }
 
-    public static Question byId(Long id) {
+    public static Question questionById(Long id) {
         return find.byId(id);
     }
 
