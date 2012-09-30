@@ -1,7 +1,11 @@
 package models;
 
 import org.apache.commons.lang.NotImplementedException;
+import play.Logger;
 import play.db.ebean.Model;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,9 +27,27 @@ public class Question extends Model {
     @Required
     public String expectedAnswer;
 
+    public boolean tweeted;
 
-    public void tweet() {
-     throw new NotImplementedException();
+    public boolean tweet() {
+        boolean success = false;
+        try {
+            Twitter twitter = TwitterFactory.getSingleton();
+            twitter.updateStatus(String.format("@%s %s [%d]",
+                                 twitter.getScreenName(),
+                                 question,
+                                 id));
+
+            tweeted = true;
+            this.save();
+
+            success = true;
+        } catch (TwitterException e) {
+            Logger.error("Unable to send tweet",
+                    e);
+        }
+
+        return success;
     }
 
     public static Question questionById(Long id) {

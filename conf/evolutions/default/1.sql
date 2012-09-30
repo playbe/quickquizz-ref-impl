@@ -7,6 +7,7 @@ create table question (
   id                        bigint not null,
   question                  varchar(255),
   expected_answer           varchar(255),
+  tweeted                   boolean,
   constraint pk_question primary key (id))
 ;
 

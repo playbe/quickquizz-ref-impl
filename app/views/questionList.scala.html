@@ -8,29 +8,27 @@
         $(".tweet_question").on("click", function() {
             var me = $(this);
             var tweet = playRoutes.controllers.QuizMaster.tweetQuestion(me.data("id"));
-            tweet
-                .ajax({
-                    success: function(data) {
-                                me.replaceWith("<a href='#' class='btn btn-small btn-success'><i class='icon-ok-circle'></i></a>");
-                            },
-                    error:  function(xhr, data) {
-                                me.addClass("btn-danger")
-                            }
-                });
+            tweet.ajax({
+                success: function(data) {
+                    me.replaceWith("<a href='#' class='btn btn-small btn-success'><i class='icon-ok-circle'></i></a>");
+                },
+                error:  function(xhr, data) {
+                    me.addClass("btn-danger")
+                }
+            });
         });
 
         $(".remove_question").on("click", function() {
             var me = $(this);
             var tweet = playRoutes.controllers.QuizMaster.deleteQuestion(me.data("id"));
-            tweet
-                .ajax({
-                    success: function(data) {
-                                me.parents("tr:first").remove();
-                            },
-                    error:  function(xhr, data) {
-                                me.addClass("btn-danger")
-                            }
-                });
+            tweet.ajax({
+                success: function(data) {
+                    me.parents("tr:first").remove();
+                },
+                error:  function(xhr, data) {
+                    me.addClass("btn-danger")
+                }
+            });
         });
 
     });
