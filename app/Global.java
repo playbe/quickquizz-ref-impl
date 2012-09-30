@@ -38,7 +38,7 @@ public class Global extends GlobalSettings {
                             if (s.contains(q.expectedAnswer)) {
                                 q.answered = true;
                                 q.save();
-                                Logger.warn("Question " + id + " has been answered!");
+                                Logger.info("Question " + id + " has been answered!");
                             } else {
                               Logger.warn("bad answer : " + id + " -- " + s);
                             }

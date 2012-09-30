@@ -1,6 +1,5 @@
 package models;
 
-import org.apache.commons.lang.NotImplementedException;
 import play.Logger;
 import play.db.ebean.Model;
 
@@ -9,6 +8,7 @@ import twitter4j.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -28,7 +28,9 @@ public class Question extends Model {
     @Required
     public String expectedAnswer;
 
-    public boolean tweeted;
+    public Boolean tweeted = false;
+
+    public Date tweetedOn;
 
     @Required
     public boolean answered = false;
@@ -40,12 +42,12 @@ public class Question extends Model {
     public boolean tweet() {
         boolean success = false;
         try {
-            twitter().updateStatus(String.format("@%s %s [%d]",
-                                 twitter.getScreenName(),
+            twitter.updateStatus(String.format("%s [#qq%d]",
                                  question,
                                  id));
 
             tweeted = true;
+            tweetedOn = new Date();
             this.save();
 
             success = true;

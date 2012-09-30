@@ -8,6 +8,7 @@ create table question (
   question                  varchar(255),
   expected_answer           varchar(255),
   tweeted                   boolean,
+  tweeted_on                timestamp,
   answered                  boolean,
   constraint pk_question primary key (id))
 ;
