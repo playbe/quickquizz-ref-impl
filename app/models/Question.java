@@ -3,13 +3,14 @@ package models;
 import org.apache.commons.lang.NotImplementedException;
 import play.Logger;
 import play.db.ebean.Model;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+
+import twitter4j.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.List;
+import java.util.ArrayList;
 
 import static play.data.validation.Constraints.Required;
 
@@ -29,11 +30,17 @@ public class Question extends Model {
 
     public boolean tweeted;
 
+    @Required
+    public boolean answered = false;
+
+    @Transient
+    private static Boolean sync = true;
+    private static Twitter twitter;
+
     public boolean tweet() {
         boolean success = false;
         try {
-            Twitter twitter = TwitterFactory.getSingleton();
-            twitter.updateStatus(String.format("@%s %s [%d]",
+            twitter().updateStatus(String.format("@%s %s [%d]",
                                  twitter.getScreenName(),
                                  question,
                                  id));
@@ -48,6 +55,29 @@ public class Question extends Model {
         }
 
         return success;
+    }
+
+    public static List<String> lastMentions() {
+        List<String> s = new ArrayList<String>();
+        try {
+            List<Status> ss = twitter().getMentions();
+            for (Status st : ss) {
+                s.add(st.getText());
+            } //would like a map please....
+        } catch (TwitterException e) {
+            Logger.error("Unable to send tweet",
+                    e);
+        }
+        return s;
+    }
+
+    private static Twitter twitter() {
+        synchronized(sync) {
+            if (twitter == null) {
+                twitter = TwitterFactory.getSingleton();
+            }
+            return twitter;
+        }
     }
 
     public static Question questionById(Long id) {

@@ -9,6 +9,8 @@ import play.mvc.Result;
 import views.html.questionForm;
 import views.html.questionList;
 
+import java.util.List;
+
 import static models.Question.findAllQuestions;
 import static models.Question.questionById;
 
@@ -59,4 +61,5 @@ public class QuizMaster extends Controller {
     public static Result allQuestions(){
         return ok(questionList.render(findAllQuestions()));
     }
+
 }
