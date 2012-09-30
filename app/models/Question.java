@@ -35,8 +35,7 @@ public class Question extends Model {
         boolean success = false;
         try {
             Twitter twitter = TwitterFactory.getSingleton();
-            twitter.updateStatus(String.format("@%s %s [%d]",
-                                 twitter.getScreenName(),
+            twitter.updateStatus(String.format("%s [%d]",
                                  question,
                                  id));
 
