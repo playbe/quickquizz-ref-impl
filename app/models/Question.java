@@ -24,8 +24,8 @@ public class Question extends Model {
     public String expectedAnswer;
 
 
-    public void post() {
-        throw new NotImplementedException();
+    public void tweet() {
+     throw new NotImplementedException();
     }
 
     public static Question questionById(Long id) {

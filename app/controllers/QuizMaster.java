@@ -33,7 +33,7 @@ public class QuizMaster extends Controller {
 
     public static Result tweetQuestion(Long id) {
         Question q = questionById(id);
-        q.post();
+        q.tweet();
         ObjectNode result = Json.newObject();
         result.put("status", "OK");
         result.put("quetion", q.question);
