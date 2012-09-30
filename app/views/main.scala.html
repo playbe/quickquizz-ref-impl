@@ -4,7 +4,7 @@
 
 <html>
     <head>
-        <title>@title</title>
+        <title>@title | QuickQuizz</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -24,7 +24,12 @@
     </head>
     <body>
         <div class="container" style="padding-top: 20px">
-            <div class="hero-unit"><h4>@title</h4></div>
+            <div class="hero-unit">
+                <div class="row">
+                    <div class="span8"><h4>@title</h4></div>
+                    <div class="span2"><img src='@routes.Assets.at("images/playbe.jpeg")' title="Play BE"/></div>
+                </div>
+            </div>
             <div class="span12">@content</div>
         </div>
     </body>

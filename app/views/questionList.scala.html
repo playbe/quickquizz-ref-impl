@@ -10,10 +10,15 @@
             var tweet = playRoutes.controllers.QuizMaster.tweetQuestion(me.data("id"));
             tweet.ajax({
                 success: function(data) {
-                    me.replaceWith("<a href='#' class='btn btn-small btn-success'><i class='icon-ok-circle'></i></a>");
+                    me.removeClass('tweet_question')
+                            .addClass('btn-success')
+                            .removeAttr('data-id')
+                            .find('i.icon-share-alt')
+                            .removeClass('icon-share-alt')
+                            .addClass('icon-ok-circle');
                 },
                 error:  function(xhr, data) {
-                    me.addClass("btn-danger")
+                    me.addClass("btn-danger");
                 }
             });
         });
@@ -35,7 +40,7 @@
 </script>
 
 
-<table class="table table-hover table-condensed">
+<table class="table table-hover table-condensed table-striped">
     <thead>
         <tr>
             <th>Id</th>
@@ -49,22 +54,19 @@
         @questionRow(question)
         <td>
             <div class="btn-group">
+              @if(question.tweeted) {
+              <a data-id="@question.id" href="#" class="btn btn-small btn-success" title="Tweeted on @question.tweetedOn"><i class='icon-ok-circle'></i></a>
+              } else {
               <a data-id="@question.id" href="#" class="btn btn-small tweet_question"><i class="icon-share-alt"></i></a>
+              }
               <a data-id="@question.id" href="#" class="btn btn-small remove_question"><i class="icon-trash"></i></a>
             </div>
         </td>
     </tr>
     }
-    @*
-        questions.map{ q =>
-            <tr>
-            @questionRow(q)
-            </tr>
-        }
-    *@
-
     </tbody>
 </table>
 
+<a href="@routes.QuizMaster.showQuestionForm()" class="btn btn-primary">Ask a question</a>
 
 }
