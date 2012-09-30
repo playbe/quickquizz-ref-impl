@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 
 import akka.util.*;
 import akka.actor.*;
+import twitter4j.TwitterFactory;
 
 
 public class Global extends GlobalSettings {
@@ -28,7 +29,7 @@ public class Global extends GlobalSettings {
 
         public void onReceive(Object message) throws Exception {
             if (message instanceof String) {
-                List<String> lm = Question.lastMentions(); //todo the return should keep the the answerer ID...
+                List<String> lm = Question.lastMentions(); //todo the return should keep the answerer ID...
                 for (String s : lm) {
                     Matcher m = p.matcher(s);
                     if (m.matches()) {
@@ -38,6 +39,11 @@ public class Global extends GlobalSettings {
                             if (s.contains(q.expectedAnswer)) {
                                 q.answered = true;
                                 q.save();
+
+                                // steve: this is just an idea...need to parse the correct responder's name, and I'm just about to go for a shower
+                                TwitterFactory.getSingleton().updateStatus(String.format("[#qq%d] has been answered by xxx",
+                                                                                         id));
+
                                 Logger.info("Question " + id + " has been answered!");
                             } else {
                               Logger.warn("bad answer : " + id + " -- " + s);
