@@ -3,6 +3,13 @@
 
 # --- !Ups
 
+create table answerer (
+  id                        bigint not null,
+  username                  varchar(255),
+  score                     integer,
+  constraint pk_answerer primary key (id))
+;
+
 create table question (
   id                        bigint not null,
   question                  varchar(255),
@@ -13,6 +20,8 @@ create table question (
   constraint pk_question primary key (id))
 ;
 
+create sequence answerer_seq;
+
 create sequence question_seq;
 
 
@@ -22,9 +31,13 @@ create sequence question_seq;
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists answerer;
+
 drop table if exists question;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists answerer_seq;
 
 drop sequence if exists question_seq;
 

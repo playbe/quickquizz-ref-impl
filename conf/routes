@@ -3,7 +3,10 @@
 # ~~~~
 
 # Home page
+GET     /stars                          controllers.Application.stars()
+
 GET     /                               controllers.QuizMaster.allQuestions()
+
 GET     /master                         controllers.QuizMaster.showQuestionForm()
 POST    /master                         controllers.QuizMaster.postQuestionForm()
 DELETE  /master/question/               controllers.QuizMaster.deleteQuestion(id:Long)

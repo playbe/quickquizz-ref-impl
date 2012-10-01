@@ -30,4 +30,11 @@ public class Application extends Controller {
     );
   }
 
+  public static Result stars() {
+    List<Answerer> as = Answerer.stars(10).getPage(0).getList();
+    return ok(
+        views.html.stars.render(as)
+    );
+  }
+
 }

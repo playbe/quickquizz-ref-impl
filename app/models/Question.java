@@ -3,11 +3,14 @@ package models;
 import play.Logger;
 import play.db.ebean.Model;
 
+import play.libs.F.Tuple;
+
 import twitter4j.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import javax.persistence.GeneratedValue;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class Question extends Model {
     private static final Finder<Long, Question> find = new Finder<Long, Question>(Long.class, Question.class);
 
     @Id
+    @GeneratedValue
     public Long id;
 
     @Required
@@ -59,12 +63,15 @@ public class Question extends Model {
         return success;
     }
 
-    public static List<String> lastMentions() {
-        List<String> s = new ArrayList<String>();
+    public static List<Tuple<String, String>> lastMentions() {
+        List<Tuple<String, String>> s = new ArrayList<Tuple<String, String>>();
         try {
             List<Status> ss = twitter().getMentions();
             for (Status st : ss) {
-                s.add(st.getText());
+                //
+                //could also use getInReplyToStatusId  ==> rather than checking on #q...
+                //
+                s.add(new Tuple("@"+st.getUser().getScreenName(), st.getText()));
             } //would like a map please....
         } catch (TwitterException e) {
             Logger.error("Unable to send tweet",

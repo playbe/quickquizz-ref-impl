@@ -1,0 +1,23 @@
+ @(stars: List[Answerer])
+
+@main("☆ Stars ☆") {
+
+
+<table class="table table-hover table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Score</th>
+      <th>Answerer</th>
+    </tr>
+  </thead>
+  <tbody>
+  @stars.map{ s =>
+    <tr>
+      <td>@s.score.toString.padTo(3, Html("&nbsp"))</td>
+      <td><a href="https://twitter.com/@s.username">@s.username</a></td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+}
